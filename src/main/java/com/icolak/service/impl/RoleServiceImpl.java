@@ -2,9 +2,10 @@ package com.icolak.service.impl;
 
 import com.icolak.dto.RoleDTO;
 import com.icolak.service.RoleService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service // like @Component - creates bean
 public class RoleServiceImpl extends AbstractMapService<RoleDTO, Long> implements RoleService {
 
     @Override
