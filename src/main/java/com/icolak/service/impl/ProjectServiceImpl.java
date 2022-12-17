@@ -29,11 +29,23 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO, String> i
 
     @Override
     public void update(ProjectDTO object) {
+
+        // When we update project, since there is no field for the project status in the form,
+        // we take project status of that project from the db and assign it to the updated project.
+        if(object.getProjectStatus() == null) {
+            object.setProjectStatus(findById(object.getProjectCode()).getProjectStatus());
+        }
+
         super.update(object.getProjectCode(), object);
     }
 
     @Override
     public void deleteById(String projectCode) {
         super.deleteById(projectCode);
+    }
+
+    @Override
+    public void complete(ProjectDTO project) {
+        project.setProjectStatus(Status.COMPLETE);
     }
 }
