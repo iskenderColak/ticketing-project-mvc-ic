@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class TaskServiceImpl extends AbstractMapService<TaskDTO, Long> implements TaskService {
+
     @Override
     public TaskDTO save(TaskDTO task) {
         if(task.getTaskStatus() == null)
@@ -37,10 +38,14 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO, Long> implement
 
     @Override
     public void update(TaskDTO task) {
-        if(task.getTaskStatus() == null)
-            task.setTaskStatus(Status.OPEN);
-        if(task.getAssignedDate() == null)
-            task.setAssignedDate(LocalDate.now());
+
+        TaskDTO foundTask = findById(task.getId());
+        // When we update a task, since we don't have fields for the assignedDate and Status in the form,
+        // we bring the values of those fields from the db and assign to the updated task.
+
+        task.setTaskStatus(foundTask.getTaskStatus());
+        task.setAssignedDate(foundTask.getAssignedDate());
+
         super.update(task.getId(), task);
     }
 
