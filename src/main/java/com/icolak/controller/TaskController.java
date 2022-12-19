@@ -1,6 +1,7 @@
 package com.icolak.controller;
 
 import com.icolak.dto.TaskDTO;
+import com.icolak.enums.Status;
 import com.icolak.service.ProjectService;
 import com.icolak.service.TaskService;
 import com.icolak.service.UserService;
@@ -78,4 +79,13 @@ public class TaskController {
 
         return "redirect:/task/create";
     }
+
+    @GetMapping("/employee/pending-tasks")
+    public String employeePendingTasks(Model model) {
+
+        model.addAttribute("tasks", taskService.findAllTasksByStatusIsNot(Status.COMPLETE));
+
+        return "task/pending-tasks";
+    }
+
 }
