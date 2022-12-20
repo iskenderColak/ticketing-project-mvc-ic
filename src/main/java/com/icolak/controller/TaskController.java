@@ -96,4 +96,25 @@ public class TaskController {
         return "task/archive";
     }
 
+    @GetMapping("/employee/edit/{id}")
+    public String employeeEditTask(@PathVariable Long id, Model model) {
+
+        model.addAttribute("task", taskService.findById(id));
+//        model.addAttribute("projects", projectService.findAll());
+//        model.addAttribute("employees", userService.findEmployees());
+        model.addAttribute("statuses", Status.values());
+        model.addAttribute("tasks", taskService.findAllTasksByStatusIsNot(Status.COMPLETE));
+
+        return "task/status-update";
+    }
+
+    @PostMapping("/employee/update/{id}")
+    public String employeeUpdateTask(TaskDTO task) {
+
+        taskService.updateStatus(task); // here we can not use update method directly,
+        // because update method get the status from db. So, we should update status in db first,
+        // to be able to do that, we create new method updateStatus
+        return "redirect:/task/employee/pending-tasks";
+    }
+
 }

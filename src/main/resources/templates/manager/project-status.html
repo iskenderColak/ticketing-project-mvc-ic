@@ -48,7 +48,7 @@
                                                 <td th:text="${project.startDate + ' to ' + project.endDate}"></td>
                                                 <td th:text="${project.assignedManager.firstName + ' ' + project.assignedManager.lastName}"></td>
                                                 <td th:text="${project.unfinishedTaskCounts + '/' + project.completeTaskCounts}"></td>
-                                                <td th:text="${project.projectStatus}"></td>
+                                                <td th:text="${project.projectStatus.value}"></td>
                                                 <td>
                                                     <!--Show this if the project can be completed-->
                                                     <a th:if="${project.unfinishedTaskCounts == 0 && project.projectStatus.value != 'Completed'}"
