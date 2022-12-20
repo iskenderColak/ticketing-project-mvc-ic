@@ -20,6 +20,11 @@ public class RoleDtoConverter implements Converter<String, RoleDTO> {
 
     @Override
     public RoleDTO convert(String source) {
+
+        if (source == null || source.equals("")) { // Select -> ""
+            return null;
+        }
+
         // Since we need Long for findById method we convert source from string to Long
         return roleService.findById(Long.parseLong(source));
     }
